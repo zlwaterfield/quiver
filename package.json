@@ -6,7 +6,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@polygon.io/client-js": "^7.3.2",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "geist": "^1.2.0",

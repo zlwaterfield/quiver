@@ -1,14 +1,15 @@
 "use client";
 
+import { Database } from "@/supabase/database.types";
 import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 
 const supabase = createClient();
 
 export default function SearchPage() {
-  const [searchResults, setSearchResults] = useState([]) as any[];
+  const [searchResults, setSearchResults] = useState<Database['public']['Tables']['tickers']['Row'][]>([]);
   const [searchCount, setSearchCount] = useState(0) as [number, any];
-  const [requestTime, setRequestTime] = useState(null);
+  const [requestTime, setRequestTime] = useState<number | null>();
   
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -24,6 +25,11 @@ export default function SearchPage() {
 
     const endTime = Date.now();
     const timeTaken = endTime - startTime;
+
+    if (error || !data) {
+      console.error(error || "No data returned");
+      return;
+    }
     
     setSearchResults(data);
     setSearchCount(count);
