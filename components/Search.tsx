@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const supabase = createClient();
 
-export default function SearchPage() {
+export const Search = () => {
   const [searchResults, setSearchResults] = useState<Database['public']['Tables']['tickers']['Row'][]>([]);
   const [searchCount, setSearchCount] = useState(0) as [number, any];
   const [requestTime, setRequestTime] = useState<number | null>();
@@ -21,7 +21,7 @@ export default function SearchPage() {
       .select("*", {count: 'exact'})
       .ilike("ticker", `%${e.target.value}%`)
       .ilike("name", `%${e.target.value}%`)
-      .range(0, 99);
+      .range(0, 14);
 
     const endTime = Date.now();
     const timeTaken = endTime - startTime;
@@ -37,10 +37,8 @@ export default function SearchPage() {
   }
 
   return (
-    <div className="w-full max-w-2xl p-10">
-      <h1>Search</h1>
-      <input type="text" placeholder="Search" onChange={handleSearch} className="w-full py-3 px-4 rounded-xl"/>
-      <p className="mt-1 text-gray-500">{searchResults?.length} of {searchCount} results ({requestTime}ms)</p>
+    <div className="w-full max-w-2xl mx-auto">
+      <p className="mt-1.5 text-gray-500">{searchResults?.length} of {searchCount} results ({requestTime}ms)</p>
       <ul className="mt-4 space-y-2">
         {searchResults.map((result, i) => (
           <li key={i}>{result.ticker} - {result.name}</li>
