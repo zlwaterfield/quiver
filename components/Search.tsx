@@ -15,6 +15,13 @@ export const Search = () => {
     e.preventDefault();
 
     const startTime = Date.now();
+
+    if (!e.target.value || e.target.value.length === 0) {
+      setSearchResults([]);
+      setSearchCount(0);
+      setRequestTime(null);
+      return;
+    }
     
     const { data, count, error } = await supabase
       .from("tickers")
