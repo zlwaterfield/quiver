@@ -38,6 +38,7 @@ export const Search = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto">
+      <input type="text" placeholder="Search" onChange={handleSearch} className="w-full py-3 px-4 rounded-xl border"/>
       <p className="mt-1.5 text-gray-500">{searchResults?.length} of {searchCount} results ({requestTime}ms)</p>
       <ul className="mt-4 space-y-2">
         {searchResults.map((result, i) => (
