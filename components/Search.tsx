@@ -2,6 +2,7 @@
 
 import { Database } from "@/supabase/database.types";
 import { createClient } from "@/utils/supabase/client";
+import Link from "next/link";
 import { useState } from "react";
 
 const supabase = createClient();
@@ -49,7 +50,11 @@ export const Search = () => {
       <p className="mt-1.5 text-gray-500">{searchResults?.length} of {searchCount} results ({requestTime}ms)</p>
       <ul className="mt-4 space-y-2">
         {searchResults.map((result, i) => (
-          <li key={i}>{result.ticker} - {result.name}</li>
+          <li key={i}>
+            <Link href={`/ticker/${result.ticker}`} className="hover:underline">
+              {result.ticker} - {result.name} ({result.exchange})
+            </Link>
+          </li>
         ))}
       </ul>
     </div>
